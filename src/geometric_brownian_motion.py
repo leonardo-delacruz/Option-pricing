@@ -39,18 +39,28 @@ def discretized_geometric_brownian_motion(S0=100.0,drift=0.1, volatility=0.5, T=
     S=np.concatenate([np.full((m_paths, 1), S0), paths],axis=1)
     return t, S
 
+def generate_GBM_paths(S0=1,
+                       rate=0.06, volatility=0.5, m_paths=2, t_exercise=1,
+                       n_steps=252, seed=918723098,
+                       antithetic=True):
+    """ Function to generate random paths, requires numpy to run. Uses exact solution  """
+    import numpy as np
+    rng = np.random.default_rng(seed)
+    dt = t_exercise / n_steps
+    import numpy as np
+    if antithetic:
+        half = m_paths // 2
+        Ns = rng.standard_normal((half, n_steps))
+        Ns = np.concatenate([Ns, -Ns], axis=0)
+    else:
+        Ns = rng.standard_normal(size=(m_paths, n_steps))
+    # Exact solution for GBM
+    exp_factor = np.exp((rate - 0.5 * volatility ** 2) * dt + volatility * Ns * np.sqrt(dt))
+    S_iterated = S0 * np.cumprod(exp_factor, axis=1)
+    S = np.concatenate([np.full((m_paths, 1), S0), S_iterated], axis=1)
+    return S
 
 
-"""   array=brownian_motion(T=1, n_steps=252, m_paths=m_paths, seed=120910923091823)
-    times=[i*1/252 for i in range(253)]
-    for path in array:
-        plt.plot(times,path)
-    plt.grid(True)
-    plt.xlabel('$t$')
-    plt.ylabel('$W_t$')
-    plt.title("Brownian motion for "+str(m_paths)+" paths")
-    plt.show()
-"""
 def main():
     import matplotlib.pyplot as plt
     m_paths = 20
