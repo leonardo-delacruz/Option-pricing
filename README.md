@@ -20,6 +20,10 @@ This project consist of code stored in
 /examples. The notebooks illustrate the code in /src. 
 
 - [random_behavior_of_assets.ipynb](examples/random_behavior_of_assets.ipynb), where I follow the analysis of Wilmott's book on Quantitative Finance
-- brownian_motion.ipynb, where I study the Geometric Brownian Motion starting from the Brownian motion without drift
-- path_dependece.ipynb, where I develop code to implement path-dependent pricing of american 
+- [brownian_motion.ipynb](examples/brownian_motion.ipynb), where I study the Geometric Brownian Motion starting from the Brownian motion without drift
+- [code_dev_path_dependence.ipynb](examples/code_dev_path_dependence.ipynb), where I develop code to implement path-dependent pricing of american 
  options and the americanized version of asian options
+
+- [path_dependence.ipynb](examples/path_dependence.ipynb), where I present the main analysis
+
+  
