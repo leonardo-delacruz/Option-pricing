@@ -1,6 +1,6 @@
-# On the path dependence of derivate options
+# On the path dependence of derivative options
 
-## Project of the Erdos Institute Project bootcamp on finance
+## Erdos Institute Project of the  bootcamp on finance  
 
 ### Executive summary
 Options prices that obey the Black-Scholes differential equations can 
