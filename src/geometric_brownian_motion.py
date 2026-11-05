@@ -59,19 +59,3 @@ def generate_GBM_paths(S0=1,
     S_iterated = S0 * np.cumprod(exp_factor, axis=1)
     S = np.concatenate([np.full((m_paths, 1), S0), S_iterated], axis=1)
     return S
-
-
-def main():
-    import matplotlib.pyplot as plt
-    m_paths = 20
-    times = [i * 1 / 252 for i in range(253)]
-    t, S =discretized_geometric_brownian_motion(S0=100,drift=0.08, volatility=0.3, T=1,
-                                    n_steps=252, m_paths=m_paths, seed=120910923091823)
-
-    for path in S:
-        plt.plot(t,path)
-    plt.show()
-
-
-if __name__ == "__main__":
-    main()

@@ -4,11 +4,21 @@ import numpy as np
 # We leave this as free function
 def regression_function(x, deg):
     return np.vstack([x ** k for k in range(deg + 1)]).T
+
 def american_put_LSM(S0=1, strike_price=1.1, rate=0.06, volatility=0.5, m_paths=8, t_exercise=3,
                                  n_steps=3, seed=91873098, deg=2):
     dt = t_exercise/n_steps
     #with antithetic variables
-    S=generate_GBM_paths(S0=S0, rate=rate, volatility=volatility, m_paths=m_paths, n_steps=n_steps, antithetic=True)
+    S = generate_GBM_paths(
+        S0=S0,
+        rate=rate,
+        volatility=volatility,
+        m_paths=m_paths,
+        t_exercise=t_exercise,
+        n_steps=n_steps,
+        seed=seed,
+        antithetic=True,
+    )
     # Compare prices at once at time=t_exercise
     payoff=np.maximum(strike_price-S[:,-1], 0.0)
     #create auxiliary array to fill for decision making
@@ -17,7 +27,7 @@ def american_put_LSM(S0=1, strike_price=1.1, rate=0.06, volatility=0.5, m_paths=
     decisions[:,-1]=payoff>0
 
     #start of the iteration in decreasing steps
-    for n in range(n_steps, 0,-1):
+    for n in range(n_steps-1, 0,-1):
         payoff=payoff*np.exp(-rate*dt)
         in_the_money=np.where(S[:,n]<strike_price)[0]
         if len(in_the_money)==0:
@@ -35,8 +45,13 @@ def american_put_LSM(S0=1, strike_price=1.1, rate=0.06, volatility=0.5, m_paths=
         decisions[exercise_idx, :]=False
         decisions[exercise_idx, n]=True
     #We discount the value from t_1 to 0
-    price= payoff.mean()*np.exp(-rate*dt)
-    return price
+    price= np.exp(-rate*dt)*payoff.mean()
+    #We have to compute the standard error
+    halfpaths = m_paths//2  # number of PAIRS
+    pair_avg = (payoff[:halfpaths] + payoff[halfpaths:]) / 2.0  # length M
+    std_error = pair_avg.std(ddof=1) / np.sqrt(halfpaths)  # antithetic SE
+
+    return price, std_error
 
 
 # Arithmetic Asian
@@ -99,6 +114,9 @@ def americanized_asian(S0=1, strike_price=1.1, rate=0.06, volatility=0.5, m_path
         payoff[in_the_money[ex_mask]] = ex_now[ex_mask]
 
     price_am_asian = payoff.mean() * np.exp(-rate * dt)
-    return price_am_asian
-
+    # We have to compute the standard error
+    halfpaths = m_paths // 2  # number of PAIRS
+    pair_avg = (payoff[:halfpaths] + payoff[halfpaths:]) / 2.0  # length M
+    std_error = pair_avg.std(ddof=1) / np.sqrt(halfpaths)  # antithetic SE
+    return price_am_asian, std_error
 
