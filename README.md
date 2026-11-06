@@ -9,8 +9,8 @@ Option prices that obey the Black–Scholes differential equations can be evalua
 
 ### Description of the repository
 This project consist of code stored in 
-/src and several jupyter notebooks stored
-/examples. The notebooks illustrate the code in /src. 
+[/src](/src) and several jupyter notebooks stored
+[/examples](/src). The notebooks illustrate the code in [/src](src). 
 
 - [random_behavior_of_assets.ipynb](examples/random_behavior_of_assets.ipynb), where I follow the analysis of Wilmott's book on Quantitative Finance
 - [brownian_motion.ipynb](examples/brownian_motion.ipynb), where I study the Geometric Brownian Motion starting from the Brownian motion without drift
