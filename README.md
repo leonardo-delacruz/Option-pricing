@@ -20,4 +20,4 @@ This project consist of code stored in
 - [path_dependence.ipynb](examples/path_dependence.ipynb), where I present the main analysis
 
 
-The t
+The technical report can be found [here](summary_project.pdf).
