@@ -1,6 +1,7 @@
 # On the Path Dependence of Derivatives via Monte Carlo Methods
 
-## Erdos Institute Project of the  bootcamp on finance  
+## Erdős Institute Project: Quant Finance Boot Camp
+ 
 
 ### Summary
 
@@ -19,4 +20,4 @@ This project consist of code stored in
 - [path_dependence.ipynb](examples/path_dependence.ipynb), where I present the main analysis
 
 
-  
+The t
