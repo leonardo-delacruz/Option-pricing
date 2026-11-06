@@ -43,11 +43,22 @@ def generate_GBM_paths(S0=1,
                        rate=0.06, volatility=0.5, m_paths=2, t_exercise=1,
                        n_steps=252, seed=918723098,
                        antithetic=True):
-    """ Function to generate random paths, requires numpy to run. Uses exact solution  """
+    """ Function to generate random paths, requires numpy to run. Uses exact solution.
+    Parameters:
+        S0 (float): Stock price at initial time
+        rate (float): risk-free rate
+        volatility (float): volatility
+        m_paths (int): number of paths to simulate
+        t_exercise (int): exercise date ( one year default)
+        n_steps (int): number of steps
+        seed (int): random seed
+        antithetic (bool): whether to use antithetic paths (default is True)
+    Returns: numpy array with the simulated paths
+    """
     import numpy as np
     rng = np.random.default_rng(seed)
     dt = t_exercise / n_steps
-    import numpy as np
+    #use antithetic variates
     if antithetic:
         half = m_paths // 2
         Ns = rng.standard_normal((half, n_steps))

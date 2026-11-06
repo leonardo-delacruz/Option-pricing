@@ -7,8 +7,23 @@ def regression_function(x, deg):
 
 def american_put_LSM(S0=1, strike_price=1.1, rate=0.06, volatility=0.5, m_paths=8, t_exercise=3,
                                  n_steps=3, seed=91873098, deg=2):
+    """
+Amrican put by Least Squares Monte Carlo
+ Parameters:
+        S0 (float): Stock price at initial time
+        strike_price (float): Strike price
+        rate (float): risk-free rate
+        volatility (float): volatility
+        m_paths (int): number of paths to simulate
+        t_exercise (int): exercise date ( one year default)
+        n_steps (int): number of steps
+        seed (int): random seed
+        deg (int): degree of the polynomial we use to regress
+    Returns: price and standard error
+    """
+    import numpy as np
     dt = t_exercise/n_steps
-    #with antithetic variables
+    #We use always antithetic variates
     S = generate_GBM_paths(
         S0=S0,
         rate=rate,
@@ -72,6 +87,19 @@ def arithmethic_asian(S0=1, rate=0.06, volatility=0.5, m_paths=150, t_exercise=1
 
 def americanized_asian(S0=1, strike_price=1.1, rate=0.06, volatility=0.5, m_paths=150, t_exercise=1, n_steps=252, seed=91873098,
                        deg=None):
+    """ American Asian put by Least Squares Monte Carlo
+    Parameters:
+        S0 (float): Stock price at initial time
+        strike_price (float): Strike price
+        rate (float): risk-free rate
+        volatility (float): volatility
+        m_paths (int): number of paths to simulate
+        t_exercise (int): exercise date ( one year default)
+        n_steps (int): number of steps
+        seed (int): random seed
+        deg (int): here we use by default degree of 2 for simplicity
+    Returns: price and standard error
+    """
     # Regression function is now a polynomial basis in two variables: here is where the strong path dependence enters
     # For simplicity I will assume only a second order approximation
     dt = t_exercise / n_steps

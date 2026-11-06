@@ -180,14 +180,3 @@ def asian_put_dp_err(S0, sigma, T, r, K=40.0, n_per_year=50, american=True,
     err_x = abs(vx - v1)
     return v2, err_A + err_x, v2 + d2 / (2.0**p - 1.0)
 
-def main():
-    S0, K, r, sigma, T = 1.0, 1.1, 0.06, 0.5, 1.0
-    print(f"American-Asian put via 2D FDM (Crank-Nicolson + cubic spline + tanh A-grid):")
-    print(f"{'N_fix':>6s} {'Nx':>5s} {'Na':>5s} {'FDM price':>10s}")
-    for N_fix, Nx, Na in [(20, 100, 80), (50, 150, 120), (50, 200, 200), (50, 300, 300)]:
-        p = american_asian_put_fdm(S0, K, r, sigma, T, N_fix=N_fix, Nx=Nx, Na=Na)
-        print(f"{N_fix:6d} {Nx:5d} {Na:5d} {p:10.4f}")
-    print()
-
-if __name__ == "__main__":
-    main()
