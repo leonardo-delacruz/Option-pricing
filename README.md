@@ -1,18 +1,10 @@
-# On the path dependence of derivative options
+# On the Path Dependence of Derivatives via Monte Carlo Methods
 
 ## Erdos Institute Project of the  bootcamp on finance  
 
-### Executive summary
-Options prices that obey the Black-Scholes differential equations can 
-be evaluated analitycally only in a handful of cases. Monte
-Carlo methods are efficient numerical methods that scale well
-with the number of dimensions and that are easy to
-implement in a computer. In this project, we focus on the
-Monte Carlo pricing of options where no-analytical solution
-exist. This is the case of American options and more exotic
-options that depend of the  path taken by the underlying. In 
-this repository, I will consider American options and an Americanized 
-arithmethic-average  Asian option.
+### Summary
+
+Option prices that obey the Black–Scholes differential equations can be evaluated analytically in only a handful of cases. Monte Carlo simulations are efficient numerical methods that scale well with the number of dimensions and are easy to implement on a computer. In this project, we focus on the Monte Carlo pricing of options for which no analytical solution exists. This is the case for American options and more exotic options that depend on the path taken by the underlying asset. In this project, I will consider American options and an Americanized arithmetic-average Asian option.
 
 ### Description of the repository
 This project consist of code stored in 
@@ -25,5 +17,6 @@ This project consist of code stored in
  options and the americanized version of asian options
 
 - [path_dependence.ipynb](examples/path_dependence.ipynb), where I present the main analysis
+
 
   
